@@ -1,0 +1,38 @@
+{
+  "name": "sensor-view",
+  "description": "Sensor grid",
+  "version": "0.0.1",
+  "author": "someone",
+  "license": "GPLv3",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solidjs/solid/blob/main/packages/solid-ssr"
+  },
+  "exports": {
+    "./static": {
+      "require": "./static/index.cjs",
+      "import": "./static/index.js"
+    }
+  },
+  "files": [
+    "static"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.js && node --trace-warnings export.js",
+    "start": "npx serve public -l 8080",
+    "serve": "cd public && python -m http.server 8080",
+    "clean": "rimraf lib/ public/"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@rollup/plugin-babel": "6.0.3",
+    "@rollup/plugin-commonjs": "24.0.1",
+    "@rollup/plugin-node-resolve": "15.0.1",
+    "babel-preset-solid": "^1.7.12",
+    "express": "^4.17.1",
+    "rollup": "^3.20.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "solid-js": "^1.7.12"
+  }
+}
