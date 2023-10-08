@@ -1,6 +1,7 @@
 import { renderToStringAsync } from "solid-js/web";
 import { fetchData } from "./src/fetchData";
 import SensorGrid from "./src/components/SensorGrid";
+import { language, setLanguage } from './src/store';
 import './styles/styles.css';
 
 // entry point for server render
