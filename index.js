@@ -10,7 +10,7 @@ export default async req => {
   return `
     <html>
       <head>
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" href="bundle.css">
       </head>
       <body>
         ${html}
