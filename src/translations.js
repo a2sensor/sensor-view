@@ -5,13 +5,15 @@ const translations = {
     empty: "Empty",
     stuck: "Stuck",
     ok: "OK",
-    'SensorGrid.title': 'Seeding control'
+    unknown: 'Disconnected',
+    'home.title': 'Seeding'
   },
   es: {
     empty: "Vacío",
     stuck: "Atascado",
     ok: "OK",
-    'SensorGrid.title': 'Control de siembra'
+    unknown: "Desconectado",
+    'home.title': 'Siembra'
   },
   // Add other languages as needed...
 };

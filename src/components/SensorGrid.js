@@ -7,19 +7,35 @@ function SensorGrid(props) {
 
   return (
     <>
-    <h1 class="text-3xl text-center my-4">{t('SensorGrid.title')}</h1>
-    <div class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
+    <section class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
       {sensors().map(sensor => (
-        <div key={sensor.id} class="flex flex-col items-center p-2" title={sensor['last-modified']}>
-          <h2 class="text-center font-bold mb-2">{sensor.name}</h2>
-          <p class={`text-center w-28 px-4 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(sensor.value)}`}>
-            <span className="font-medium">{t(sensor.value)}</span>
-          </p>
+        <div key={sensor.id} class="bg-white shadow-lg rounded p-4" title={sensor['last-modified']}>
+          <h2 class="text-x1 font-medium text-center mb-2">{sensor.name}</h2>
+          <div class="flex flex-col items-center">
+            <p class={`text-center w-28 px-4 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(sensor.value.status)}`}>
+              <span className="font-medium">{t(sensor.value.status)}</span>
+            </p>
+            <time class="text-center text-xs w-28 px-3 py-2 text-gray-500">{formatTimeString(sensor.value.timestamp)}</time>
+          </div>
         </div>
       ))}
-    </div>
+    </section>
     </>
   );
+}
+
+function formatTimeString(dateString) {
+    const date = new Date(dateString);
+    let hours = date.getUTCHours();
+    let minutes = date.getUTCMinutes();
+    let seconds = date.getUTCSeconds();
+
+    // Ensure double-digit formatting
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    return `${hours}:${minutes}:${seconds}`;
 }
 
 function getStatusClass(value) {

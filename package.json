@@ -19,8 +19,9 @@
     "static"
   ],
   "scripts": {
-    "watch": "nodemon --watch sensors.json --exec 'npm run build'",
-    "build": "rollup -c rollup.config.js && node copy-css.cjs && node --trace-warnings export.js",
+    "watch": "nodemon --watch ../sensors.json --exec 'npm run build'",
+    "copy-assets": "copyfiles -u 1 assets/images/**/*.* public/",
+    "build": "rollup -c rollup.config.js && node copy-css.cjs && npm run copy-assets && node --trace-warnings export.js",
     "start": "npx serve public -l 8080",
     "serve": "cd public && python -m http.server 8080",
     "clean": "rimraf lib/ public/"
@@ -32,6 +33,7 @@
     "@rollup/plugin-node-resolve": "15.0.1",
     "autoprefixer": "^10.4.16",
     "babel-preset-solid": "^1.7.12",
+    "copyfiles": "^2.4.1",
     "express": "^4.17.1",
     "nodemon": "^3.0.1",
     "postcss-import": "^15.1.0",

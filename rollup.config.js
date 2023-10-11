@@ -1,10 +1,10 @@
-import nodeResolve from "@rollup/plugin-node-resolve";
-import common from "@rollup/plugin-commonjs";
+import autoprefixer from 'autoprefixer';
 import babel from "@rollup/plugin-babel";
+import common from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import tailwindcss from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
 
 export default [
   {
