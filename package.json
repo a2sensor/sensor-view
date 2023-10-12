@@ -1,13 +1,13 @@
 {
   "name": "sensor-view",
-  "description": "Sensor grid",
-  "version": "0.0.1",
-  "author": "someone",
+  "description": "A2Sensor Sensor Grid",
+  "version": "0.0.2",
+  "author": "a2sensor",
   "license": "GPLv3",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/solidjs/solid/blob/main/packages/solid-ssr"
+    "url": "https://github.com/a2sensor/sensor-view"
   },
   "exports": {
     "./static": {
@@ -24,7 +24,7 @@
     "build": "rollup -c rollup.config.js && node copy-css.cjs && npm run copy-assets && node --trace-warnings export.js",
     "start": "npx serve public -l 8080",
     "serve": "cd public && python -m http.server 8080",
-    "clean": "rimraf lib/ public/"
+    "clean": "rm -rf lib/ public/"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
