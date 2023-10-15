@@ -66,7 +66,7 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
 
   return (
     <>
-      <section class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
+      <section class="grid grid-cols-1 md:grid-cols-[1fr,1fr,1fr,1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] gap-4 p-4">
         {sensors().map(sensor => {
           const status = sensor.status as TranslationKey;
           const isAnimating = animatingSensors().has(sensor.id);
