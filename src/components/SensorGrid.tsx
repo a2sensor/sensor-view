@@ -41,7 +41,7 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
     };
 
     fetchSensors();
-    const intervalId = setInterval(fetchSensors, 100);
+    const intervalId = setInterval(fetchSensors, 500);
     return () => clearInterval(intervalId);
   });
 
