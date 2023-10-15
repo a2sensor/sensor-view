@@ -16,20 +16,31 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import { fetchDataOnline } from "../fetchData";
+import { fetchDataOnline } from "../fetchDataOnline";
 import { createSignal, createEffect } from 'solid-js';
-import t from '../translations';
+import t, { TranslationKey } from '../translations';
 
-function SensorGrid(props) {
-//  const [sensors, setSensors] = createSignal(props.sensors);
-  const [sensors, setSensors] = createSignal([]);
+interface Sensor {
+  id: string;
+  name: string;
+  value: {
+    status: string;
+    timestamp: string;
+  };
+}
+
+interface SensorGridProps {
+  sensors: Sensor[];
+}
+
+const SensorGrid: React.FC<SensorGridProps> = (props) => {
+  const [sensors, setSensors] = createSignal<Sensor[]>([]);
 
   createEffect(() => {
-    console.log(`createEffect is running`)
     const fetchSensors = async () => {
-      console.log(`In fetchSensors`)
-      setSensors(await fetchDataOnline());
-    }
+      const fetchedSensors = await fetchDataOnline();
+      setSensors(fetchedSensors);
+    };
 
     fetchSensors();
     const intervalId = setInterval(fetchSensors, 1000);
@@ -40,9 +51,9 @@ function SensorGrid(props) {
     <>
     <section class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
       {sensors().map(sensor => {
-        const status = sensor.value.status;
+        const status = sensor.value as TranslationKey;
         return (
-          <div key={sensor.id} class="bg-white shadow-lg rounded p-4" title={t(safeStatus(status))}>
+          <div id={sensor.id} class="bg-white shadow-lg rounded p-4" title={t(safeStatus(status))}>
             <h2 class="text-x1 font-medium text-center mb-2 h-[50px]">{sensor.name}</h2>
             <div class={`flex flex-col items-center justify-center ${getBackgroundStatusClass(status)}`}>
               <div class="pt-4">
@@ -50,7 +61,7 @@ function SensorGrid(props) {
                   <img src={`images/${safeStatus(status)}.png`} alt={t(safeStatus(status))} class="w-20 h-auto"/>
                 </p>
               </div>
-              <time class="text-center text-xs w-28 px-3 py-2 text-gray-500 min-h-5">{formatTimeString(sensor.value.timestamp)}</time>
+              <time class="text-center text-xs w-28 px-3 py-2 text-gray-500 min-h-5">{formatTimeString(sensor.timestamp)}</time>
             </div>
           </div>
         )})}
@@ -59,31 +70,22 @@ function SensorGrid(props) {
   );
 }
 
-function safeStatus(status) {
-  return (status === undefined) ? "unknown" : status;
+function safeStatus(status: string): TranslationKey {
+  return ((status === undefined) ? "unknown" : status) as TranslationKey;
 }
 
-function formatTimeString(dateString) {
-  let result;
+function formatTimeString(dateString: string): string {
   if (dateString === undefined) {
-    result = "";
-  } else {
-    const date = new Date(dateString);
-    let hours = date.getUTCHours();
-    let minutes = date.getUTCMinutes();
-    let seconds = date.getUTCSeconds();
-
-    // Ensure double-digit formatting
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-    result = `${hours}:${minutes}:${seconds}`;
+    return "";
   }
+
+  // Extract time and timezone
+  const [_, result] = dateString.split(' ');
+
   return result;
 }
 
-function getStatusClass(value) {
+function getStatusClass(value: TranslationKey): string {
   switch(safeStatus(value)) {
     case 'empty':
       return 'bg-blue-500';
@@ -96,7 +98,7 @@ function getStatusClass(value) {
   }
 }
 
-function getBackgroundStatusClass(value) {
+function getBackgroundStatusClass(value: TranslationKey): string {
   switch(safeStatus(value)) {
     case 'empty':
       return 'bg-blue-100';
@@ -111,18 +113,18 @@ function getBackgroundStatusClass(value) {
 
 // testing stuff
 /*
-function randomStatus() {
-  switch (Math.floor(Math.random() * 4)) {
-    case 0:
-      return "empty";
-    case 1:
-      return "stuck";
-    case 2:
-      return "ok";
-    default:
-      return "unknown";
-  }
-}
-*/
+   function randomStatus() {
+   switch (Math.floor(Math.random() * 4)) {
+   case 0:
+   return "empty";
+   case 1:
+   return "stuck";
+   case 2:
+   return "ok";
+   default:
+   return "unknown";
+   }
+   }
+ */
 
 export default SensorGrid;

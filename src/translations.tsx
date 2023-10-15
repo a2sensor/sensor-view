@@ -1,4 +1,4 @@
-// src/translations.js
+// src/translations.tsx
 //
 // This file provides text translations.
 //
@@ -16,10 +16,32 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import { language } from './store';
+import { Language, language } from './store';
 
-const translations = {
-  en: {
+export type TranslationKey =
+  | 'empty'
+  | 'stuck'
+  | 'ok'
+  | 'unknown'
+  | 'home.title'
+  | 'references.header'
+  | 'reference.unknown'
+  | 'reference.unknown.alt'
+  | 'reference.stuck'
+  | 'reference.stuck.alt'
+  | 'reference.empty'
+  | 'reference.empty.alt'
+  | 'reference.ok'
+  | 'reference.ok.alt';
+
+export type Translations = {
+  [key in Language['lang']]: {
+    [key in TranslationKey]: string;
+  }
+};
+
+const translations: Translations = {
+    en: {
     empty: "Empty",
     stuck: "Stuck",
     ok: "OK",
@@ -53,6 +75,6 @@ const translations = {
   }
 };
 
-export default function t(key) {
+export default function t(key: TranslationKey): string {
   return translations[language.lang][key] || key;
 }

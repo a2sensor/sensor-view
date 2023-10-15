@@ -1,6 +1,6 @@
-// copy-css.cjs
+// src/fetchDataOnline.tsx
 //
-// This file defines a script to copy css files to the public/ folder.
+// This file defines the function to access the sensors.json file remotely.
 //
 // Copyright (C) 2023-today a2sensor's a2sensor/sensor-view
 //
@@ -16,15 +16,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-const fs = require('fs');
-const path = require('path');
-
-fs.copyFile(path.join(__dirname, 'lib', 'bundle.css'), path.join(__dirname, 'public', 'bundle.css'), (err) => {
-  if (err) throw err;
-  console.log('bundle.css was copied to public/');
-});
-
-fs.copyFile(path.join(__dirname, 'lib', 'bundle.css.map'), path.join(__dirname, 'public', 'bundle.css.map'), (err) => {
-  if (err) throw err;
-  console.log('bundle.css.map was copied to public/');
-});
+export async function fetchDataOnline() {
+  console.log(`fetching online /data/sensors.json`)
+  const response = await fetch(`/data/sensors.json`);
+  console.log(`fetch online -> ${response}`)
+  return await response.json();
+}

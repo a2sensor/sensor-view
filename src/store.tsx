@@ -1,6 +1,6 @@
-// src/fetchData.js
+// src/store.tsx
 //
-// This file defines the function to parse the sensors.json file
+// This file defines a store, used to provide text translations.
 //
 // Copyright (C) 2023-today a2sensor's a2sensor/sensor-view
 //
@@ -16,20 +16,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { createStore } from 'solid-js/store';
 
-export function fetchDataOffline() {
-  const currentDir = path.dirname(fileURLToPath(import.meta.url));
-  const dataPath = path.join(currentDir, '../../data/sensors.json');
-  const rawData = fs.readFileSync(dataPath, 'utf-8');
-  return JSON.parse(rawData);
-}
+export type Language = {
+  lang: 'en' | 'es';
+};
 
-export async function fetchDataOnline() {
-  console.log(`fetching online ../../data/sensors.json`)
-  const response = await fetch('../../data/sensors.json');
-  console.log(`fetch online -> ${response}`)
-  return await response.json();
-}
+export const [language, setLanguage] = createStore<Language>({
+    lang: 'es' // default language
+});

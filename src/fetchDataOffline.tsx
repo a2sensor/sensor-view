@@ -1,6 +1,6 @@
-// src/store.js
+// src/fetchDataOffline.tsx
 //
-// This file defines a store, used to provide text translations.
+// This file defines the function to access the sensors.json file locally.
 //
 // Copyright (C) 2023-today a2sensor's a2sensor/sensor-view
 //
@@ -16,8 +16,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import { createStore } from 'solid-js/store';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export const [language, setLanguage] = createStore({
-  lang: 'es' // default language
-});
+export function fetchDataOffline() {
+  const currentDir = path.dirname(fileURLToPath(import.meta.url));
+  const dataPath = path.join(currentDir, '../../data/sensors.json');
+  const rawData = fs.readFileSync(dataPath, 'utf-8');
+  return JSON.parse(rawData);
+}
