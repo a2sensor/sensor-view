@@ -6,7 +6,7 @@ let sensorsData: any[];
 const isServer = typeof window === 'undefined';
 if (isServer) {
   import('../fetchDataOffline').then(module => {
-    sensorsData = module.fetchDataOffline();
+    sensorsData = module.default.fetchDataOffline();
   })
 } else {
   sensorsData = await fetchDataOnline();

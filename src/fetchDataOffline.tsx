@@ -16,13 +16,20 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+let fetchDataOffline;
+if (process.env.IS_SERVER) {
+  fs = require('fs');
+  path = require('path');
+  url = require('url');
 
-export function fetchDataOffline() {
-  const currentDir = path.dirname(fileURLToPath(import.meta.url));
-  const dataPath = path.join(currentDir, '../../data/sensors.json');
-  const rawData = fs.readFileSync(dataPath, 'utf-8');
-  return JSON.parse(rawData);
+  fetchDataOffline = function() {
+    const currentDir = path.dirname(url.fileURLToPath(import.meta.url));
+    const dataPath = path.join(currentDir, '../../data/sensors.json');
+    const rawData = fs.readFileSync(dataPath, 'utf-8');
+    return JSON.parse(rawData);
+  }
+} else {
+  fetchDataOffline = function() { return []; };
 }
+
+export default { fetchDataOffline: fetchDataOffline };
