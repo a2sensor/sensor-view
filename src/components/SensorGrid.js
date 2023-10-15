@@ -16,11 +16,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import { createSignal } from 'solid-js';
+import { fetchDataOnline } from "../fetchData";
+import { createSignal, createEffect } from 'solid-js';
 import t from '../translations';
 
 function SensorGrid(props) {
-  const [sensors] = createSignal(props.sensors);
+//  const [sensors, setSensors] = createSignal(props.sensors);
+  const [sensors, setSensors] = createSignal([]);
+
+  createEffect(() => {
+    console.log(`createEffect is running`)
+    const fetchSensors = async () => {
+      console.log(`In fetchSensors`)
+      setSensors(await fetchDataOnline());
+    }
+
+    fetchSensors();
+    const intervalId = setInterval(fetchSensors, 1000);
+    return () => clearInterval(intervalId);
+  });
+
   return (
     <>
     <section class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
@@ -28,7 +43,7 @@ function SensorGrid(props) {
         const status = sensor.value.status;
         return (
           <div key={sensor.id} class="bg-white shadow-lg rounded p-4" title={t(safeStatus(status))}>
-            <h2 class="text-x1 font-medium text-center mb-2">{sensor.name}</h2>
+            <h2 class="text-x1 font-medium text-center mb-2 h-[50px]">{sensor.name}</h2>
             <div class={`flex flex-col items-center justify-center ${getBackgroundStatusClass(status)}`}>
               <div class="pt-4">
                 <p class={`text-center w-auto px-4 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(status)}`}>

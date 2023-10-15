@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { renderToStringAsync } from "solid-js/web";
-import { fetchData } from "./src/fetchData";
+import { fetchDataOffline } from "./src/fetchData";
 import SensorGrid from "./src/components/SensorGrid";
 import { language, setLanguage } from './src/store';
 import t from './src/translations';
@@ -25,9 +25,10 @@ import './styles/styles.css';
 
 // entry point for server render
 export default async req => {
-  const sensorsData = await fetchData();
+  const sensorsData = await fetchDataOffline();
   const sensorGrid = await renderToStringAsync(() => <SensorGrid sensors={sensorsData} />);
   return `
+    <!doctype html>
     <html lang="es">
       <head>
         <meta charset="UTF-8"/>
@@ -41,8 +42,7 @@ export default async req => {
       </head>
       <body class="bg-gray-100">
          <header class="flex items-center bg-black p-4 text-white shadow-md mx-auto">
-        <!--header class="header bg-black p-4 text-white shadow-md mx-auto flex items-center justify-between"-->
-          <img src="./images/logo-small.png" alt="Logo" class="w-40 h-auto mr-4"/>
+            <img src="./images/logo-small.png" alt="Logo" class="w-40 h-auto mr-4"/>
           <h1 class="text-4xl font-bold text-center flex-grow">${t('home.title')}</h1>
           <img src="./images/logo-small.png" alt="Spacer Logo" class="w-40 h-auto opacity-0"/>
         </header>

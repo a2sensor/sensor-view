@@ -19,9 +19,10 @@
     "static"
   ],
   "scripts": {
-    "watch": "nodemon --watch ../sensors.json --exec 'npm run build'",
+    "watch": "nodemon --watch ../data/sensors.json --exec 'npm run stop || npm run build && npm run start'",
     "copy-assets": "copyfiles -u 1 assets/images/**/*.* public/",
     "build": "rollup -c rollup.config.js && node copy-css.cjs && npm run copy-assets && node --trace-warnings export.js",
+    "stop": "kill $(lsof -t -i:8080)",
     "start": "npx serve public -l 8080",
     "serve": "cd public && python -m http.server 8080",
     "clean": "rm -rf lib/ public/"
@@ -30,7 +31,9 @@
     "@babel/core": "^7.21.3",
     "@rollup/plugin-babel": "6.0.3",
     "@rollup/plugin-commonjs": "24.0.1",
+    "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
     "babel-preset-solid": "^1.7.12",
     "copyfiles": "^2.4.1",
@@ -38,9 +41,10 @@
     "nodemon": "^3.0.1",
     "postcss-import": "^15.1.0",
     "rollup": "^3.20.0",
-    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-import": "^1.1.1",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-route-manifest": "^1.0.0",
     "solid-js": "^1.7.12",
     "tailwindcss": "^3.3.3"
   }

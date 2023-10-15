@@ -20,9 +20,16 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-export function fetchData() {
+export function fetchDataOffline() {
   const currentDir = path.dirname(fileURLToPath(import.meta.url));
-  const dataPath = path.join(currentDir, '../../sensors.json');
+  const dataPath = path.join(currentDir, '../../data/sensors.json');
   const rawData = fs.readFileSync(dataPath, 'utf-8');
   return JSON.parse(rawData);
+}
+
+export async function fetchDataOnline() {
+  console.log(`fetching online ../../data/sensors.json`)
+  const response = await fetch('../../data/sensors.json');
+  console.log(`fetch online -> ${response}`)
+  return await response.json();
 }

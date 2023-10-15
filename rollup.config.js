@@ -23,8 +23,30 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import tailwindcss from 'tailwindcss';
+import json from "@rollup/plugin-json";
+import copy from "rollup-plugin-copy";
+import terser from "@rollup/plugin-terser";
+import manifest from "rollup-route-manifest";
 
 export default [
+  {
+    input: "src/components/SensorGrid.js",
+    output: [
+      {
+        dir: "public/js",
+        format: "esm"
+      }
+    ],
+    preserveEntrySignatures: false,
+    plugins: [
+      nodeResolve({ exportConditions: ["solid"], extensions: [".js", ".jsx", ".ts", ".tsx"] }),
+      babel({
+        babelHelpers: "bundled",
+        presets: [[ "solid", { generate: "dom", hydratable: true } ]]
+      }),
+      terser()
+    ]
+  },
   {
     input: "index.js",
     output: [
@@ -33,7 +55,7 @@ export default [
         format: "esm"
       }
     ],
-    external: ["solid-js", "solid-js/web"],
+    external: ["solid-js", "solid-js/web", "node-fetch"],
     plugins: [
       postcss({
         config: {
@@ -48,12 +70,13 @@ export default [
         ],
         autoModules: true
       }),
-      nodeResolve({ preferBuiltins: true, exportConditions: ["solid", "node"] }),
+      nodeResolve({ preferBuiltins: true, exportConditions: ["solid", "node"], extensions: [".js", ".jsx", ".ts", ".tsx"] }),
       babel({
         babelHelpers: "bundled",
-        presets: [["solid", { generate: "ssr", hydratable: true }]]
+        presets: [["solid", { generate: "ssr", hydratable: true, async: true }]]
       }),
-      common()
+      common(),
+      json()
     ]
   }
 ];
