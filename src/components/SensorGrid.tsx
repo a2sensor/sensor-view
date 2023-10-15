@@ -23,10 +23,8 @@ import t, { TranslationKey } from '../translations';
 interface Sensor {
   id: string;
   name: string;
-  value: {
-    status: string;
-    timestamp: string;
-  };
+  status: string;
+  timestamp: string;
 }
 
 interface SensorGridProps {
@@ -51,7 +49,7 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
     <>
     <section class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-10 gap-4 p-4">
       {sensors().map(sensor => {
-        const status = sensor.value as TranslationKey;
+        const status = sensor.status as TranslationKey;
         return (
           <div id={sensor.id} class="bg-white shadow-lg rounded p-4" title={t(safeStatus(status))}>
             <h2 class="text-x1 font-medium text-center mb-2 h-[50px]">{sensor.name}</h2>
