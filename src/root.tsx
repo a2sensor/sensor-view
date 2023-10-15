@@ -37,6 +37,29 @@ export default function Root() {
             <Routes>
               <FileRoutes />
             </Routes>
+            <footer class="bg-gray-800 text-white p-4">
+              <div class="container mx-auto">
+                <h3 class="text-xl font-bold mb-4">{t('references.header')}</h3>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <li class="flex items-center">
+                    <img src="./images/unknown.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.unknown.alt')}"/>
+                    <a href="https://www.flaticon.com/free-icons/disconnected" title="{t('reference.unknown.alt')}">{t('reference.unknown')}</a>
+                  </li>
+                  <li class="flex items-center">
+                    <img src="./images/stuck.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.stuck.alt')}"/>
+                    <a href="https://www.flaticon.com/free-icons/accident" title="{t('reference.stuck.alt')}">{t('reference.stuck')}</a>
+                  </li>
+                  <li class="flex items-center">
+                    <img src="./images/empty.png" class="w-10 h-10 mr-2 bg-white p-1" alt={t('reference.empty.alt')}/>
+                    <a href="https://www.flaticon.com/free-icons/empty-set" title="{t('reference.empty.alt')}">{t('reference.empty')}</a>
+                  </li>
+                  <li class="flex items-center">
+                    <img src="./images/ok.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.ok.alt')}"/>
+                    <a href="https://www.flaticon.com/free-icons/wind" title="{t('reference.ok.alt')}">{t('reference.ok')}</a>
+                  </li>
+                </ul>
+              </div>
+            </footer>
           </ErrorBoundary>
         </Suspense>
         <Scripts />
