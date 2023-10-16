@@ -65,8 +65,8 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
   });
 
   return (
-    <>
-      <section class="grid grid-cols-1 md:grid-cols-[1fr,1fr,1fr,1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] gap-4 p-4">
+    <div class="flex items-center justify-center mx-auto">
+      <section class="grid grid-cols-1 md:grid-cols-[1fr,1fr,1fr,1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] justify-center grid-container gap-1">
         {sensors().map(sensor => {
           const status = sensor.status as TranslationKey;
           const isAnimating = animatingSensors().has(sensor.id);
@@ -74,20 +74,20 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
             animatingSensors().delete(sensor.id);
           }
           return (
-            <div id={sensor.id} class="bg-white shadow-lg rounded p-4" title={t(safeStatus(status))}>
-              <h2 class="text-x1 font-medium text-center mb-2 h-[50px]">{sensor.name}</h2>
+            <div id={sensor.id} class="bg-white shadow-lg rounded p-2 w-20 mt-1 mb-1" title={t(safeStatus(status))}>
+              <h2 class="text-x1 font-medium text-center mb-1">{sensor.name}</h2>
               <div class={`flex flex-col items-center justify-center ${getBackgroundStatusClass(status)}`}>
-                <div class="pt-4 relative">
-                  <p class={`text-center w-auto px-4 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(status)}`}>
-                    <img src={`images/${safeStatus(status)}.png`} alt={t(safeStatus(status))} class={`w-20 h-auto ${isAnimating ? 'grow-shrink' : ''}`}/>
+                <div class="pt-2 relative">
+                  <p class={`text-center w-auto px-2 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(status)} ${isAnimating ? 'grow-shrink' : ''}`}>
+                    <img src={`images/${safeStatus(status)}.png`} alt={t(safeStatus(status))} class="w-10 h-auto"/>
                   </p>
                 </div>
-                <time class="text-center text-xs w-28 px-3 py-2 text-gray-500 min-h-5">{formatTimeString(sensor.timestamp)}</time>
+                <time class="text-center text-xs text-gray-500 mt-1 mb-1">{formatTimeString(sensor.timestamp)}</time>
               </div>
             </div>
         )})}
       </section>
-    </>
+    </div>
   );
 }
 

@@ -14,7 +14,7 @@ if (isServer) {
 
 export default function Home() {
   return (
-    <main class="container mx-auto mt-8 p-0">
+    <main class="w-full p-1 bg-gradient-to-br from-white to-green-900">
       <SensorGrid sensors={sensorsData} />
     </main>
   );

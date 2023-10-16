@@ -4,7 +4,7 @@
 
 @keyframes growShrink {
   0% {
-    transform: scale(1);
+    transform: scale(0.5);
   }
   50% {
     transform: scale(1.5);
@@ -16,4 +16,10 @@
 
 .grow-shrink {
   animation: growShrink 1s ease;
+}
+
+/* Custom CSS */
+.grid-container {
+    width: 100vh;
+  height: 87vh; /* Set container height to 100% of the viewport height */
 }
