@@ -29,32 +29,32 @@ export default function Root() {
       <Body class="bg-gray-100">
         <Suspense>
           <ErrorBoundary>
-            <header class="flex items-center bg-black p-4 text-white shadow-md mx-auto">
-              <img src="./images/logo-small.png" alt="Logo" class="w-40 h-auto mr-4"/>
-              <h1 class="text-4xl font-bold text-center flex-grow">{t('home.title')}</h1>
-              <img src="./images/logo-small.png" alt="Spacer Logo" class="w-40 h-auto opacity-0"/>
+            <header class="flex items-center bg-black p-2 text-white">
+              <img src="./images/logo-small.png" alt="Logo" class="w-20 h-auto"/>
+              <h1 class="text-xl font-bold text-center flex-grow">{t('home.title')}</h1>
+              <img src="./images/logo-small.png" alt="Spacer Logo" class="w-20 h-auto opacity-0"/>
             </header>
             <Routes>
               <FileRoutes />
             </Routes>
-            <footer class="bg-gray-800 text-white p-4">
+            <footer class="bg-green-900 text-white p-1">
               <div class="container mx-auto">
-                <h3 class="text-xl font-bold mb-4">{t('references.header')}</h3>
+                <h3 class="text-sm font-bold mb-4">{t('references.header')}</h3>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <li class="flex items-center">
-                    <img src="./images/unknown.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.unknown.alt')}"/>
+                  <li class="flex items-center text-xs">
+                    <img src="./images/unknown.png" class="w-5 h-5 mr-2 bg-white p-1" alt="{t('reference.unknown.alt')}"/>
                     <a href="https://www.flaticon.com/free-icons/disconnected" title="{t('reference.unknown.alt')}">{t('reference.unknown')}</a>
                   </li>
-                  <li class="flex items-center">
-                    <img src="./images/stuck.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.stuck.alt')}"/>
+                  <li class="flex items-center text-xs">
+                    <img src="./images/stuck.png" class="w-5 h-5 mr-2 bg-white p-1" alt="{t('reference.stuck.alt')}"/>
                     <a href="https://www.flaticon.com/free-icons/accident" title="{t('reference.stuck.alt')}">{t('reference.stuck')}</a>
                   </li>
-                  <li class="flex items-center">
-                    <img src="./images/empty.png" class="w-10 h-10 mr-2 bg-white p-1" alt={t('reference.empty.alt')}/>
+                  <li class="flex items-center text-xs">
+                    <img src="./images/empty.png" class="w-5 h-5 mr-2 bg-white p-1" alt={t('reference.empty.alt')}/>
                     <a href="https://www.flaticon.com/free-icons/empty-set" title="{t('reference.empty.alt')}">{t('reference.empty')}</a>
                   </li>
-                  <li class="flex items-center">
-                    <img src="./images/ok.png" class="w-10 h-10 mr-2 bg-white p-1" alt="{t('reference.ok.alt')}"/>
+                  <li class="flex items-center text-xs">
+                    <img src="./images/ok.png" class="w-5 h-5 mr-2 bg-white p-1" alt="{t('reference.ok.alt')}"/>
                     <a href="https://www.flaticon.com/free-icons/wind" title="{t('reference.ok.alt')}">{t('reference.ok')}</a>
                   </li>
                 </ul>

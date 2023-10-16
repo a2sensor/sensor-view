@@ -46,7 +46,6 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
     return () => clearInterval(intervalId);
   });
 
-  // Create a signal to store IDs of sensors that should animate
   const [animatingSensors, setAnimatingSensors] = createSignal(new Set<string>());
   const [previousStatusProcessed, setPreviousStatusProcessed] = createSignal(new Map<string, string>());
 
@@ -58,15 +57,14 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
         animatingSensors().add(sensor.id);
         const audioElement = new Audio(getAudioFile(sensor.status));
         audioElement.play();
-        console.log(`${sensor.previous} vs ${sensor.status}`)
         previousStatusProcessed().set(sensor.id, sensor.previous);
       }
     });
   });
 
-  return (
+    return (
     <div class="flex items-center justify-center mx-auto">
-      <section class="grid grid-cols-1 md:grid-cols-[1fr,1fr,1fr,1fr,1fr] lg:grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] justify-center grid-container gap-1">
+      <section class={`grid custom-grid justify-center grid-container gap-1`}>
         {sensors().map(sensor => {
           const status = sensor.status as TranslationKey;
           const isAnimating = animatingSensors().has(sensor.id);
@@ -84,11 +82,11 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
                 </div>
                 <time class="text-center text-xs text-gray-500 mt-1 mb-1">{formatTimeString(sensor.timestamp)}</time>
               </div>
-            </div>
-        )})}
+    </div>
+)})}
       </section>
     </div>
-  );
+    );
 }
 
 function safeStatus(status: string): TranslationKey {

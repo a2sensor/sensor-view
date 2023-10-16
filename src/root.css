@@ -20,6 +20,32 @@
 
 /* Custom CSS */
 .grid-container {
-    width: 100vh;
-  height: 87vh; /* Set container height to 100% of the viewport height */
+  width: 100vh;
+/*  height: 87vh; */
+}
+
+/* Base styles (mobile-first) */
+.custom-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* sm: screens 640px and above */
+@media (min-width: 640px) {
+  .custom-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* md: screens 768px and above */
+@media (min-width: 768px) {
+  .custom-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* lg: screens 1024px and above */
+@media (min-width: 1024px) {
+  .custom-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
 }
