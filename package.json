@@ -1,7 +1,7 @@
 {
   "name": "sensor-view",
   "description": "A2Sensor Sensor Grid",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "a2sensor",
   "license": "GPLv3",
   "repository": {

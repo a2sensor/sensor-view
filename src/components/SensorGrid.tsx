@@ -63,29 +63,29 @@ const SensorGrid: React.FC<SensorGridProps> = (props) => {
   });
 
     return (
-    <div class="flex items-center justify-center mx-auto">
-      <section class={`grid custom-grid justify-center grid-container gap-1`}>
-        {sensors().map(sensor => {
-          const status = sensor.status as TranslationKey;
-          const isAnimating = animatingSensors().has(sensor.id);
-          if (isAnimating) {
-            animatingSensors().delete(sensor.id);
-          }
-          return (
-            <div id={sensor.id} class="bg-white shadow-lg rounded p-2 w-20 mt-1 mb-1" title={t(safeStatus(status))}>
-              <h2 class="text-x1 font-medium text-center mb-1">{sensor.name}</h2>
-              <div class={`flex flex-col items-center justify-center ${getBackgroundStatusClass(status)}`}>
-                <div class="pt-2 relative">
-                  <p class={`text-center w-auto px-2 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(status)} ${isAnimating ? 'grow-shrink' : ''}`}>
-                    <img src={`images/${safeStatus(status)}.png`} alt={t(safeStatus(status))} class="w-10 h-auto"/>
-                  </p>
+      <div class="flex items-center justify-center mx-auto main-container">
+        <section class={`grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 sm:gap-2 sm:p-10 md:gap-10 md:p-20 lg:gap-20 lg:p-40 items-center`}>
+          {sensors().map(sensor => {
+            const status = sensor.status as TranslationKey;
+            const isAnimating = animatingSensors().has(sensor.id);
+            if (isAnimating) {
+              animatingSensors().delete(sensor.id);
+            }
+            return (
+              <div id={sensor.id} class="bg-white shadow-lg rounded h-40 p-2 w-20 mt-1 mb-1 flex flex-col items-center justify-center" title={t(safeStatus(status))}>
+                <h2 class="text-x1 font-medium text-center mb-1">{sensor.name}</h2>
+                <div class={`flex flex-col items-center justify-center ${getBackgroundStatusClass(status)}`}>
+                  <div class="pt-2 relative">
+                    <p class={`text-center w-auto px-2 py-2 rounded-full shadow hover:shadow-md sensor ${getStatusClass(status)} ${isAnimating ? 'grow-shrink' : ''}`}>
+                      <img src={`images/${safeStatus(status)}.png`} alt={t(safeStatus(status))} class="w-10 h-auto"/>
+                    </p>
+                  </div>
+                  <time class="text-center text-xs text-gray-500 mt-1 mb-1">{formatTimeString(sensor.timestamp)}</time>
                 </div>
-                <time class="text-center text-xs text-gray-500 mt-1 mb-1">{formatTimeString(sensor.timestamp)}</time>
               </div>
-    </div>
-)})}
-      </section>
-    </div>
+          )})}
+        </section>
+      </div>
     );
 }
 
